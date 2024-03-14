@@ -1,0 +1,179 @@
+@import '../../design/fonts/CustomFontStyle.scss';
+
+
+.signup__popup__component{
+    max-width: 50vw;
+    min-width: 28vw;
+    height: 70vh;
+    
+    // background-color: aqua;/
+    .signup__form__component__nav{
+        padding: 20px;
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        
+
+        img{
+            cursor: pointer;
+        }
+    }
+
+    .signup__form__component__body{
+        padding: 20px;
+        padding-top: 10px;
+
+
+        .signup__form__component__body__inputs{
+            display: flex;
+            flex-direction: column;
+            gap: 20px;
+        }
+
+        .signup__form__component__tandc{
+            color: rgb(105, 105, 105);
+            font-size: small;
+            display: flex;
+
+            p{
+                span{
+                    color: rgb(239, 79, 95);
+                    font-weight: 500;
+                    cursor: pointer;
+                }
+            }
+        }
+
+        button{
+            width: 100%;
+            margin: 10px 0;
+            &:hover{
+                outline: none;
+                border: none;
+                
+            }
+
+            &:disabled{
+                outline: none;
+                background-color:#d3d3d3;
+                color: #fff;
+            }
+        }
+
+
+
+        .other__login__text{
+
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            width: 100%;
+            color: rgb(105, 105, 105);
+            span{
+                width: 45%;
+                border: 1px solid #d3d3d3;
+            }
+        }
+
+        .other__login__method__icons{
+            width: 100%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+
+            img{
+                width: 30px;
+                cursor: pointer;
+            }
+        }
+
+        .choose_your_option{
+            margin: 0;
+            background-color: aquamarine;
+        }
+        .create__your__password__heading{
+            margin: 0;
+        }
+
+        .previous__page__button{
+            position: absolute;
+            bottom: 0;
+
+            span{
+                color:rgb(239, 79, 95) ;
+                font-weight: 600;
+            }
+        }
+
+        .otp__input__heading{
+            margin: 0;
+            margin-bottom: 1rem;
+            width: 25vw;
+            text-align: center;
+            color: rgb(79, 79, 79);
+            font-weight: 400;
+            font-size: 1rem;
+        }
+        .signup__form__component__body__otp{
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .resend__otp__section{
+            color: rgb(105, 105, 105);
+            font-size: small;
+            padding: 0px 15px;
+            display: flex;
+            justify-content: space-between;
+
+            .resend__button{
+                color:rgb(239, 79, 95)  ;
+                cursor: pointer;
+                font-weight: 500;
+            }
+        }
+    }
+    .signup__form__component__footer{
+        // background-color: aqua;
+        text-align: center;
+        cursor: pointer;
+
+        span{
+            color:rgb(239, 79, 95) ;
+            font-weight: 600;
+        }
+    }
+
+
+    .create__password__otp__card{
+        border: 1px solid grey;
+        display: flex;
+        padding: 20px;
+        border-radius: 10px;
+        cursor: pointer;
+        // margin-bottom: 20px;
+        h3 , p{
+            margin: 0;
+            // background-color: aqua;
+        }
+        h3{
+            margin-bottom: 10px;
+        }
+        p{
+            color: rgb(105, 105, 105);
+        }
+    }
+
+
+    
+
+
+
+
+
+
+}
+
+
+
