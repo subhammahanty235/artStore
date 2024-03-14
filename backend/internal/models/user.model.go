@@ -11,6 +11,6 @@ type User struct {
 	Name      string             `json:"name" Usage:"required"`
 	MobileNum string             `json:"mobile_number"`
 	Email     string             `json:"email" Usage:"required,alphanumeric"`
-	Password  string             `json:"password" Usage:"required,alphanumeric"`
+	Password  string             `json:"password"`
 	CreatedAt time.Time          `json:"created_at"`
 }

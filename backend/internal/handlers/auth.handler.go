@@ -2,6 +2,8 @@ package handlers
 
 import (
 	"context"
+	"fmt"
+
 	// "errors"
 	"net/http"
 	"time"
@@ -35,7 +37,7 @@ func (ga *StoreApp) Home() gin.HandlerFunc {
 	}
 }
 
-func (ga *StoreApp) SignUp(db *mongo.Client) gin.HandlerFunc {
+func (ga *StoreApp) SignUpWithPassword(db *mongo.Client) gin.HandlerFunc {
 	return func(ctx *gin.Context) {
 		var user *models.User
 
@@ -114,5 +116,161 @@ func (ga *StoreApp) SignUp(db *mongo.Client) gin.HandlerFunc {
 		// 	})
 		// 	return
 		// }
+	}
+}
+
+func (ga *StoreApp) GetOtp(db *mongo.Client) gin.HandlerFunc {
+	return func(ctx *gin.Context) {
+		var data *models.Otp
+		if err := ctx.ShouldBindJSON(&data); err != nil {
+			_ = ctx.AbortWithError(http.StatusBadRequest, gin.Error{Err: err})
+		}
+
+		data.SentOtp, _ = utils.GenerateOtp(6)
+		data.RequestedOn, _ = time.Parse(time.RFC3339, time.Now().Format(time.RFC3339))
+		data.ValidTill = data.RequestedOn.Add(5 * time.Minute)
+
+		dbctx, cancel := context.WithTimeout(context.Background(), 100*time.Second)
+		defer cancel()
+
+		var g *query.StoreAppDB
+		collection := query.Otp(*db)
+
+		filter := bson.D{{Key: "emailId", Value: data.EmailId}}
+		var res bson.M
+
+		findErr := collection.FindOne(dbctx, filter).Decode(&res)
+
+		if findErr != nil {
+			println(findErr.Error())
+		} else {
+			emailId, _ := res["emailId"].(string)
+			_, deleteErr := collection.DeleteOne(dbctx, bson.D{{Key: "emailId", Value: emailId}})
+			if deleteErr != nil {
+				g.App.ErrorLogger.Fatal(deleteErr)
+			}
+		}
+
+		data.ID = primitive.NewObjectID()
+
+		_, insertErr := collection.InsertOne(dbctx, data)
+
+		if insertErr != nil {
+			ctx.JSON(http.StatusUnprocessableEntity, gin.H{
+				"message": "Error while creating the token",
+				"error":   insertErr.Error(),
+				"success": false,
+			})
+			return
+		}
+
+		ctx.JSON(http.StatusOK, gin.H{
+			"emailId": data.EmailId,
+			"otp":     data.SentOtp,
+			"success": true,
+		})
+
+	}
+}
+
+func (ga *StoreApp) ValidateOtp(db *mongo.Client) gin.HandlerFunc {
+	return func(ctx *gin.Context) {
+		type CustomInput struct {
+			RecievedOTP string `json:"recievedOtp"`
+			Name        string `json:"name"`
+			EmailId     string `json:"emailId"`
+		}
+
+		var reqData *CustomInput
+
+		if err := ctx.ShouldBindJSON(&reqData); err != nil {
+			_ = ctx.AbortWithError(http.StatusBadRequest, gin.Error{Err: err})
+		}
+		dbctx, cancel := context.WithTimeout(context.Background(), 100*time.Second)
+		defer cancel()
+
+		//fetch the required data  element from db to validate the OTP
+
+		var findOtpData bson.M
+		otpCollection := query.Otp(*db)
+
+		findErr := otpCollection.FindOne(dbctx, bson.D{{Key: "emailId", Value: reqData.EmailId}}).Decode(&findOtpData)
+		if findErr == mongo.ErrNoDocuments {
+			ctx.JSON(http.StatusUnprocessableEntity, gin.H{
+				"message": "Error while finding the OTP details",
+				"error":   findErr.Error(),
+			})
+			return
+		}
+		fmt.Println(reqData.EmailId)
+		fmt.Println(findOtpData)
+		sentOtp, _ := findOtpData["sentOtp"].(string)
+		validTillPrimitive := findOtpData["validTill"].(primitive.DateTime)
+		validTill := validTillPrimitive.Time()
+		currentTime := time.Now()
+		isOtpExpired := currentTime.After(validTill)
+
+		if isOtpExpired {
+			ctx.JSON(http.StatusUnprocessableEntity, gin.H{
+				"message": "Your Otp is Expired, Please request again",
+				"error":   nil,
+				"success": false,
+			})
+			return
+		}
+
+		// check if Otp is matching or not
+		if reqData.RecievedOTP == sentOtp {
+
+			// save the user
+			// var user *models.User
+			user := new(models.User)
+
+			user.ID = primitive.NewObjectID()
+			user.Email = reqData.EmailId
+			user.Name = reqData.Name
+			user.CreatedAt, _ = time.Parse(time.RFC3339, time.Now().Format(time.RFC3339))
+			userCollection := query.User(*db)
+			_, insertErr := userCollection.InsertOne(dbctx, user)
+			if insertErr != nil {
+				ctx.JSON(http.StatusUnprocessableEntity, gin.H{
+					"message": "Couldn't sign up, Some error occuered!",
+					"error":   insertErr.Error(),
+					"success": false,
+				})
+				return
+			} else {
+				token, err := utils.Generate(user.Email, user.ID)
+				if err != nil {
+					ctx.JSON(http.StatusUnprocessableEntity, gin.H{
+						"message": "Error occured while generating token",
+						"error":   err.Error(),
+						"success": false,
+					})
+					return
+				}
+				_, deleteErr := otpCollection.DeleteOne(dbctx, bson.D{{Key: "emailId", Value: user.Email}})
+				if deleteErr != nil {
+					var g *query.StoreAppDB
+					g.App.ErrorLogger.Fatal(deleteErr)
+				}
+				ctx.JSON(http.StatusOK, gin.H{
+
+					"message": "SignUp Complete",
+					"error":   nil,
+					"success": true,
+					"token":   token,
+				})
+			}
+
+		} else {
+			ctx.JSON(http.StatusBadRequest, gin.H{
+				"message": "Wrong Otp, please enter correct one",
+				"error":   nil,
+				"success": false,
+			})
+			return
+		}
+
 	}
 }
