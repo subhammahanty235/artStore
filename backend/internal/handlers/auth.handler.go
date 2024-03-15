@@ -2,7 +2,6 @@ package handlers
 
 import (
 	"context"
-	"fmt"
 
 	// "errors"
 	"net/http"
@@ -55,7 +54,6 @@ func (ga *StoreApp) SignUpWithPassword(db *mongo.Client) gin.HandlerFunc {
 		var g *query.StoreAppDB
 
 		collection := query.User(*db)
-
 		filter := bson.D{{Key: "email", Value: user.Email}}
 		var res bson.M
 
@@ -82,6 +80,7 @@ func (ga *StoreApp) SignUpWithPassword(db *mongo.Client) gin.HandlerFunc {
 					"token":   token,
 					"message": "Registered Successfully",
 					"email":   user.Email,
+					"success": true,
 				})
 				return
 			}
@@ -90,6 +89,7 @@ func (ga *StoreApp) SignUpWithPassword(db *mongo.Client) gin.HandlerFunc {
 
 		ctx.JSON(http.StatusFound, gin.H{
 			"message": "Exisiting account, go to the login page",
+			"success": false,
 		})
 		// return
 
@@ -202,8 +202,7 @@ func (ga *StoreApp) ValidateOtp(db *mongo.Client) gin.HandlerFunc {
 			})
 			return
 		}
-		fmt.Println(reqData.EmailId)
-		fmt.Println(findOtpData)
+
 		sentOtp, _ := findOtpData["sentOtp"].(string)
 		validTillPrimitive := findOtpData["validTill"].(primitive.DateTime)
 		validTill := validTillPrimitive.Time()
