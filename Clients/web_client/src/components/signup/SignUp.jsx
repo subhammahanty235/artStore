@@ -194,9 +194,6 @@ const CollectPasswordOrOTP = ({ setOtp, otp, password, setPassword, choosedOptio
     }
 
     const signupWithPasswordHandler = () =>{
-        console.log(userData.email)
-        console.log(userData.name)
-        console.log(password)
         dispatch(signupWithPassword( userData.email ,userData.name, password))
     }
 
