@@ -10,8 +10,8 @@ import OTP from "../../utils/OtpInput"
 import { transformEmailForOTP } from "../../utils/functions/emailUtils"
 import useOtpResendTimer from "../../utils/functions/useOtpResendTimer"
 import { useDispatch, useSelector } from "react-redux"
-import { generateOTP } from "../../redux/actions/authActions"
-
+import { generateOTP, signupWithOTP, signupWithPassword } from "../../redux/actions/authActions"
+import {useNavigate} from 'react-router-dom'
 
 const SignUp = () => {
     // const dispatch = useDispatch();
@@ -177,12 +177,36 @@ const OtpAndPassword = ({ setComponent, setChoosedOption , userData}) => {
 }
 
 const CollectPasswordOrOTP = ({ setOtp, otp, password, setPassword, choosedOption, userData , setChoosedOption}) => {
+    const dispatch = useDispatch()
+    const navigate = useNavigate()
+    const {signupotpLoading, signupComplete} = useSelector((state) => state.authReducer)
+
     // eslint-disable-next-line no-unused-vars
     const { minutes, seconds, startTimer, active, resetTimer, timerFinished } = useOtpResendTimer(300)
 
     const [confirmPassword, setConfirmPassword] = useState("")
 
     const [disableButton, setDisablebutton] = useState(true)
+
+    const validateOtp = () =>{
+
+        dispatch(signupWithOTP( userData.email ,userData.name, otp))
+    }
+
+    const signupWithPasswordHandler = () =>{
+        console.log(userData.email)
+        console.log(userData.name)
+        console.log(password)
+        dispatch(signupWithPassword( userData.email ,userData.name, password))
+    }
+
+    useEffect(()=>{
+        if(signupComplete === true){
+            navigate("/")
+        }
+    },[signupComplete])
+
+    
 
     useEffect(() => {
         if (choosedOption === 2) {
@@ -222,7 +246,7 @@ const CollectPasswordOrOTP = ({ setOtp, otp, password, setPassword, choosedOptio
                         <div className="signup__form__component__body">
                             {/* <p className="create__your__password__heading">Create a Password</p> */}
                             <div className="signup__form__component__body__inputs">
-                                <TextField fullWidth id="outlined-basic" size="small" label="subhammahanty235@gmail.com" variant="outlined" disabled="true" />
+                                <TextField fullWidth id="outlined-basic" size="small" label={userData.email} variant="outlined" disabled="true" />
                                 <TextField fullWidth id="outlined-basic" size="small" label="New Password" variant="outlined" value={password} onChange={(e) => setPassword(e.target.value)} />
                                 <TextField fullWidth id="outlined-basic" size="small" label="Confirm Password" variant="outlined" value={confirmPassword} onChange={(e) => setConfirmPassword(e.target.value)} />
                             </div>
@@ -231,7 +255,7 @@ const CollectPasswordOrOTP = ({ setOtp, otp, password, setPassword, choosedOptio
                                 <p> remember me on this device </p>
                             </div>
 
-                            <button disabled={disableButton} >Create Account</button>
+                            <button disabled={disableButton} onClick={signupWithPasswordHandler}>Create Account</button>
 
                             <div className="previous__page__button">
                                 <p onClick={backToPreviousPage}> Wanna go back to <span>previous page?</span> </p>
@@ -261,7 +285,7 @@ const CollectPasswordOrOTP = ({ setOtp, otp, password, setPassword, choosedOptio
                                 <p>remember me on this device </p>
                             </div> */}
 
-                            <button disabled={disableButton}>Proceed</button>
+                            <button disabled={disableButton} onClick={validateOtp}>{signupotpLoading ? "Please wait" :"Proceed" }</button>
 
                             <div className="previous__page__button">
                                 <p onClick={backToPreviousPage}> Wanna go back to <span>previous page?</span>  </p>

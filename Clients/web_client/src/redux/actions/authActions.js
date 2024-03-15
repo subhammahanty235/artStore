@@ -12,8 +12,6 @@ export const generateOTP = (emailId) => async (dispatch) => {
                 },
             })
 
-            console.log(response.data)
-
         if (response.data.success === true) {
             dispatch({
                 type: "GENERATE_SIGNUP_OTP_SUCCESS"
@@ -45,14 +43,13 @@ export const signupWithOTP = (emailId, name, otp) => async (dispatch) => {
             },
         })
 
-        console.log(emailId)
-        console.log(name)
-        console.log(otp)
-
-        if (response.data.success === true) {
+        if (response.data.success) {
+           
             dispatch({
-                type: "SIGHUP_WITH_OTP_SUCCESS"
+                type: "SIGHUP_WITH_OTP_SUCCESS",
+                token:response.data.token
             })
+
         } else {
             dispatch({
                 type: "SIGHUP_WITH_OTP_FAILED"
@@ -64,24 +61,27 @@ export const signupWithOTP = (emailId, name, otp) => async (dispatch) => {
         })
     }
 }
-export const signupWithPassword = (emailId, name, otp) => async (dispatch) => {
+export const signupWithPassword = (emailId, name, password) => async (dispatch) => {
+    
     try {
         dispatch({ type: "SIGHUP_WITH_PASSWORD" })
-        const response = await axios.post(`${import.meta.env.VITE_REACT_APP_BACKEND_URL}auth/signup`,
+        const response = await axios.post(`${import.meta.env.VITE_REACT_APP_BACKEND_URL}/auth/signup`,
             {
-                emailId: emailId,
+                email: emailId,
                 name: name,
-                recievedOtp: otp
-            }, +
+                password: password
+            }, 
         {
             headers: {
                 "Content-Type": "application/json",
             },
         })
 
+
         if (response.data.success === true) {
             dispatch({
-                type: "SIGHUP_WITH_PASSWORD_SUCCESS"
+                type: "SIGHUP_WITH_PASSWORD_SUCCESS",
+                token:response.data.token
             })
         } else {
             dispatch({
@@ -89,6 +89,7 @@ export const signupWithPassword = (emailId, name, otp) => async (dispatch) => {
             })
         }
     } catch (error) {
+       
         dispatch({
             type: "SIGHUP_WITH_PASSWORD_FAILED"
         })
