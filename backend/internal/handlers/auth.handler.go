@@ -91,31 +91,7 @@ func (ga *StoreApp) SignUpWithPassword(db *mongo.Client) gin.HandlerFunc {
 			"message": "Exisiting account, go to the login page",
 			"success": false,
 		})
-		// return
 
-		// if err != nil {
-		// 	_ = ctx.AbortWithError(http.StatusInternalServerError, errors.New("error while adding new user"))
-		// 	ctx.JSON(http.StatusBadRequest, gin.H{"message": err.Error()})
-
-		// }
-		// if !ok {
-		// 	_ = ctx.AbortWithError(http.StatusInternalServerError, err)
-		// 	return
-		// }
-
-		// switch status {
-		// case 1:
-		// 	ctx.JSON(http.StatusOK, gin.H{
-		// 		"message": "Registered Successfully",
-		// 	})
-		// 	return
-
-		// case 2:
-		// 	ctx.JSON(http.StatusFound, gin.H{
-		// 		"message": "Exisiting account, go to the login page",
-		// 	})
-		// 	return
-		// }
 	}
 }
 
@@ -271,5 +247,152 @@ func (ga *StoreApp) ValidateOtp(db *mongo.Client) gin.HandlerFunc {
 			return
 		}
 
+	}
+}
+
+func (ga *StoreApp) LoginWithPassword(db *mongo.Client) gin.HandlerFunc {
+	return func(ctx *gin.Context) {
+		type CustomStruct struct {
+			EmailId  string `json:"emailId"`
+			Password string `json:"password"`
+		}
+
+		var reqData *CustomStruct
+
+		if err := ctx.ShouldBindJSON(&reqData); err != nil {
+			_ = ctx.AbortWithError(http.StatusBadRequest, gin.Error{Err: err})
+		}
+
+		dbctx, cancel := context.WithTimeout(context.Background(), 100*time.Second)
+		defer cancel()
+
+		collection := query.User(*db)
+		filter := bson.D{{Key: "email", Value: reqData.EmailId}}
+
+		var response bson.M
+		findErr := collection.FindOne(dbctx, filter).Decode(&response)
+		if findErr != nil {
+			if findErr == mongo.ErrNoDocuments {
+				ctx.JSON(http.StatusNotFound, gin.H{
+					"message": "User with this EmailId doesn't exists",
+					"error":   findErr,
+					"success": false,
+				})
+				return
+			}
+		}
+
+		result, _ := utils.VerifyHash(reqData.Password, response["password"].(string))
+		println(result)
+		if result {
+
+			idObject := response["_id"].(primitive.ObjectID)
+
+			token, err := utils.Generate(response["email"].(string), idObject)
+
+			if err != nil {
+				ctx.JSON(http.StatusUnprocessableEntity, gin.H{
+					"message": "Error while creating the token",
+					"error":   err,
+				})
+				return
+			}
+			ctx.JSON(http.StatusOK, gin.H{
+				"token":   token,
+				"message": "Logged in Successfully",
+				"email":   response["email"],
+				"success": true,
+			})
+			return
+		} else {
+			ctx.JSON(http.StatusNotFound, gin.H{
+				"message": "Wrong Password/Credentials",
+				"error":   "Wrong Password",
+				"success": false,
+			})
+			return
+		}
+
+	}
+}
+
+func (ga *StoreApp) LoginWithOTP(db *mongo.Client) gin.HandlerFunc {
+	return func(ctx *gin.Context) {
+		type CustomInput struct {
+			EmailId     string `json:"emailId"`
+			RecievedOTP string `json:"recievedOtp"`
+		}
+
+		var reqdata *CustomInput
+
+		if err := ctx.ShouldBindJSON(&reqdata); err != nil {
+			_ = ctx.AbortWithError(http.StatusBadRequest, gin.Error{Err: err})
+		}
+
+		dbctx, cancel := context.WithTimeout(context.Background(), 100*time.Second)
+		defer cancel()
+
+		var findOtpData bson.M
+		otpCollection := query.Otp(*db)
+
+		otpFindErr := otpCollection.FindOne(dbctx, bson.D{{Key: "emailId", Value: reqdata.EmailId}}).Decode(&findOtpData)
+
+		if otpFindErr == mongo.ErrNoDocuments {
+			ctx.JSON(http.StatusNotFound, gin.H{
+				"message": "Error while finding the OTP details",
+				"error":   otpFindErr.Error(),
+				"success": false,
+			})
+			return
+		}
+
+		sendOtp, _ := findOtpData["sentOtp"].(string)
+		validTillPrimitive := findOtpData["validTill"].(primitive.DateTime)
+		validTill := validTillPrimitive.Time()
+		currentTime := time.Now()
+		isOtpExpired := currentTime.After(validTill)
+
+		if isOtpExpired {
+			ctx.JSON(http.StatusUnprocessableEntity, gin.H{
+				"message": "Your Otp is Expired, Please request again",
+				"error":   nil,
+				"success": false,
+			})
+			return
+		}
+
+		if reqdata.RecievedOTP == sendOtp {
+
+			userCollection := query.User(*db)
+
+			var user bson.M
+
+			userFindErr := userCollection.FindOne(dbctx, bson.D{{Key: "email", Value: reqdata.EmailId}}).Decode(&user)
+			if userFindErr == mongo.ErrNoDocuments {
+				ctx.JSON(http.StatusUnprocessableEntity, gin.H{
+					"message": "User not found! Please sign up",
+					"error":   userFindErr.Error(),
+					"success": false,
+				})
+				return
+			}
+			idObject := user["_id"].(primitive.ObjectID)
+			token, _ := utils.Generate(user["email"].(string), idObject)
+
+			ctx.JSON(http.StatusOK, gin.H{
+				"token":   token,
+				"message": "Logged in Successfully",
+				"email":   user["email"],
+				"success": true,
+			})
+			return
+		} else {
+			ctx.JSON(http.StatusNotFound, gin.H{
+				"message": "Wrong Password/Credentials",
+				"error":   "Wrong Password",
+				"success": false,
+			})
+			return
+		}
 	}
 }

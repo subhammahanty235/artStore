@@ -60,5 +60,5 @@ func main() {
 
 	services.Services(router, storeApp, &client)
 
-	router.Run("localhost:8080")
+	router.Run(":8080")
 }
