@@ -24,7 +24,7 @@ func main() {
 
 	err := godotenv.Load()
 	if err != nil {
-		app.ErrorLogger.Fatal("No .env file available")
+		app.ErrorLogger.Fatal("No .env file available" + err.Error())
 	}
 
 	uri := os.Getenv("MONGODB_URI")
