@@ -36,6 +36,30 @@ export const authReducer = createReducer(initialState, (builder) => {
         .addCase("SIGHUP_WITH_OTP_FAILED", (state) => {
             state.signupotpLoading = false;
             state.signupComplete = false;
+        })
+        .addCase("LOGIN_WITH_PASSWORD", (state) => {
+            state.signuppwLoading = true;
+        })
+        .addCase("LOGIN_WITH_PASSWORD_SUCCESS", (state, action) => {
+            state.signuppwLoading = false;
+            state.signupComplete = true;
+            localStorage.setItem("token", action.token);
+        })
+        .addCase("LOGIN_WITH_PASSWORD_FAILED", (state) => {
+            state.signuppwLoading = false;
+            state.signupComplete = false;
+        })
+        .addCase("LOGIN_WITH_OTP", (state) => {
+            state.signupotpLoading = true;
+        })
+        .addCase("LOGIN_WITH_OTP_SUCCESS", (state,action) => {
+            state.signupotpLoading = false;
+            state.signupComplete = true;
+            localStorage.setItem("token", action.token);
+        })
+        .addCase("LOGIN_WITH_OTP_FAILED", (state) => {
+            state.signupotpLoading = false;
+            state.signupComplete = false;
         });
 });
 

@@ -7,6 +7,9 @@ import BpCheckbox from "../../design/inputs/Inputs"
 import { transformEmailForOTP } from "../../utils/functions/emailUtils"
 import useOtpResendTimer from "../../utils/functions/useOtpResendTimer"
 import OTP from "../../utils/OtpInput"
+import { useDispatch, useSelector } from 'react-redux'
+import { generateOTP, loginWithOTP, loginWithPassword } from '../../redux/actions/authActions'
+import { useNavigate } from 'react-router-dom'
 
 const Login = () => {
     const [showSignUp, setShowSignup] = useState(true);
@@ -22,7 +25,7 @@ const Login = () => {
                         component === 1 ?
                             <LoginFormComponent setComponent={setComponent} setUserdata={setUserdata} userData={userData} />
                             :
-                            <OTPLogin />
+                            <OTPLogin setComponent={setComponent}/>
                         //     <CollectPasswordOrOTP setOtp={setOtp}  otp={otp} password={password} setPassword={setPassword} choosedOption={choosedOption} userData={userData} setChoosedOption={setComponent}/>
                     }
                 </ClickAwayListener>
@@ -34,12 +37,13 @@ const LoginFormComponent = ({ setComponent, setUserdata, userData }) => {
 
     // const [acceptTnC, setAcceptTnC] = useState(false);
     const [buttonDisable, setButtonDisable] = useState(true)
+    const dispatch = useDispatch()
     const onChangeHandler = (e) => {
         setUserdata({ ...userData, [e.target.name]: e.target.value })
     }
 
     const checkbuttonDisable = () => {
-        if (userData.email != "" && userData.password != "") {
+        if (userData.email !== "" && userData.password !== "") {
             setButtonDisable(false)
         } else {
             setButtonDisable(true)
@@ -73,7 +77,7 @@ const LoginFormComponent = ({ setComponent, setUserdata, userData }) => {
                     <p>I agree to Storyes <span>Terms of Service. Privacy Policy</span> and <span> <br /> Content Policies</span> </p>
                 </div> */}
 
-                <button disabled={buttonDisable} onClick={() => { setComponent(2) }}>Log in</button>
+                <button disabled={buttonDisable} onClick={() => {dispatch(loginWithPassword(userData.email , userData.password))}}>Log in</button>
 
                 <div className="other__login__text">
                     <span></span>
@@ -96,11 +100,29 @@ const LoginFormComponent = ({ setComponent, setUserdata, userData }) => {
     </>
 }
 
-const OTPLogin = () => {
+const OTPLogin = ({setComponent}) => {
     const [gotOtp, setGotOtp] = useState(false);
     const { minutes, seconds, startTimer, active, resetTimer, timerFinished } = useOtpResendTimer(300)
     const [emailId, setEmailId] = useState("")
     const [otp , setOtp] = useState("")
+    const navigate = useNavigate()
+    const {otpGenerated} = useSelector((state) => state.authReducer)
+    const {signupotpLoading, signupComplete} = useSelector((state) => state.authReducer)
+    const dispatch = useDispatch()
+    useEffect(() => {
+        if(otpGenerated === true){
+            setGotOtp(true)
+            startTimer()
+        }
+    },[otpGenerated])
+
+    useEffect(()=>{
+        if(signupComplete === true){
+            navigate("/")
+        }
+    },[signupComplete])
+
+    
 
     return (
         <>
@@ -118,12 +140,12 @@ const OTPLogin = () => {
                                 <TextField fullWidth id="outlined-basic" size="small" label="Email Id" variant="outlined" value={emailId} name="emailId" onChange={(e) => setEmailId(e.target.value)} />
                                 <br />
 
-                                <button disabled={emailId === ""} onClick={()=>{setGotOtp(true);startTimer()}}>Get OTP</button>
+                                <button disabled={emailId === ""} onClick={()=>{dispatch(generateOTP(emailId))}}>Get OTP</button>
 
 
 
                                 <div className="previous__page__button">
-                                    <p onClick={() => { }}> Wanna go back to <span>previous page?</span>  </p>
+                                    <p onClick={() => {setComponent(1) }}> Wanna go back to <span>previous page?</span>  </p>
                                 </div>
                             </>
                             :
@@ -148,10 +170,10 @@ const OTPLogin = () => {
                                 <p>remember me on this device </p>
                             </div> */}
 
-                            <button disabled={otp.length !== 6} onClick={()=>{}}>{"Proceed"}</button>
+                            <button disabled={otp.length !== 6} onClick={()=>{dispatch(loginWithOTP(emailId, otp))}}>{"Proceed"}</button>
 
                             <div className="previous__page__button">
-                                <p onClick={()=>{}}> Wanna go back to <span>previous page?</span>  </p>
+                                <p onClick={()=>{setGotOtp(false)}}> Wanna go back to <span>previous page?</span>  </p>
                             </div>
                             </>
                     }
