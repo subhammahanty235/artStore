@@ -1,0 +1,14 @@
+version: '3'
+services:
+  rabbitmq:
+    image: rabbitmq:3.13-management
+    ports:
+      - "5672:5672"  # RabbitMQ port
+      - "15672:15672"  # RabbitMQ management UI port
+
+  backend:
+    build: .
+    ports:
+      - "8080:8080"  # Your Golang application port
+    depends_on:
+      - rabbitmq
