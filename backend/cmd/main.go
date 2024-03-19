@@ -4,7 +4,6 @@ import (
 	"context"
 	"log"
 	"os"
-	"path/filepath"
 
 	"github.com/gin-gonic/gin"
 	"github.com/joho/godotenv"
@@ -22,11 +21,8 @@ func main() {
 
 	app.InfoLogger = InfoLogger
 	app.ErrorLogger = ErrorLogger
-	dir, everr := filepath.Abs(filepath.Dir(os.Args[0]))
-	if everr != nil {
-		log.Fatal(everr)
-	}
-	err := godotenv.Load(filepath.Join(dir, ".env"))
+
+	err := godotenv.Load()
 	if err != nil {
 		app.ErrorLogger.Fatal("No .env file available" + err.Error())
 	}
