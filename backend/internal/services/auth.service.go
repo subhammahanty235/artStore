@@ -15,6 +15,6 @@ func AuthServices(r *gin.RouterGroup, g *handlers.StoreApp, db *mongo.Client) {
 	router.POST("/generateOtp", g.GetOtp(db))
 	router.POST("/validateOtp", g.ValidateOtp(db))
 	router.POST("/loginpw", g.LoginWithPassword(db))
-	router.POST("loginwithotp", g.LoginWithOTP(db))
+	router.POST("/loginwithotp", g.LoginWithOTP(db))
 
 }
