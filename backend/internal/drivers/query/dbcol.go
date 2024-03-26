@@ -11,3 +11,8 @@ func Otp(db mongo.Client) mongo.Collection {
 	var otp = db.Database("artStoreDev").Collection("otp")
 	return *otp
 }
+
+func AvailableCities(db mongo.Client) mongo.Collection {
+	var availableCities = db.Database("artStoreDev").Collection("availableLocation")
+	return *availableCities
+}

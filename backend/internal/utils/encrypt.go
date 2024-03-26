@@ -23,6 +23,8 @@ func Encrypt(text string) (string, error) {
 }
 
 func VerifyHash(text, hashedText string) (bool, error) {
+	println("Hashed --> " + hashedText)
+	println("test --> " + text)
 	if text == "" || hashedText == "" {
 		return false, nil
 	}

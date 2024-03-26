@@ -15,5 +15,9 @@ func Services(r *gin.Engine, g *handlers.StoreApp, db *mongo.Client) {
 	{
 		AuthServices(authGroup, g, db)
 	}
+	cityGroup := r.Group("/city")
+	{
+		CityService(cityGroup, g, db)
+	}
 
 }
