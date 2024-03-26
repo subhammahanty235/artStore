@@ -2,14 +2,22 @@
 import {Route , Routes} from 'react-router-dom'
 import HomePage from './pages/homepage/HomePage'
 import SignUp from './components/signup/SignUp'
+import Login from './components/login/Login'
 const App = () => {
   return (
-    <div>
-      <Routes>
+    <>
+    <Routes>
         <Route exact path="/" element={<HomePage/>} />
-        <Route path="/city/:cityname"  element={<SignUp/>}/>
+        <Route path="/city/:cityname"  element={<Login/>}/>
       </Routes>
-    </div>
+
+      <Login/>
+      <SignUp/>
+    
+    </>
+    
+      
+    
   )
 }
 

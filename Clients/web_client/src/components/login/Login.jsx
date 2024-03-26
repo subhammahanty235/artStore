@@ -1,9 +1,9 @@
+/* eslint-disable react/prop-types */
 import './login.scss'
 import { useState, useEffect } from 'react'
 import { ClickAwayListener, Dialog, TextField } from '@mui/material'
 import ClosePopupIcon from '../../assets/cross.svg'
 import GoogleLogo from '../../assets/google-icon.svg'
-import BpCheckbox from "../../design/inputs/Inputs"
 import { transformEmailForOTP } from "../../utils/functions/emailUtils"
 import useOtpResendTimer from "../../utils/functions/useOtpResendTimer"
 import OTP from "../../utils/OtpInput"
@@ -15,11 +15,12 @@ const Login = () => {
     const [showSignUp, setShowSignup] = useState(true);
     const [component, setComponent] = useState(1);
     const [userData, setUserdata] = useState({ email: "", password: "" });
+    const {openLoginPanel} = useSelector((state) => state.global)
     // const [password, setPassword] = useState("");
     // const [otp, setOtp] = useState("");
     return (
         <div>
-            <Dialog open={showSignUp}>
+            <Dialog open={openLoginPanel}>
                 <ClickAwayListener onClickAway={() => setShowSignup(false)}>
                     {
                         component === 1 ?
@@ -49,6 +50,13 @@ const LoginFormComponent = ({ setComponent, setUserdata, userData }) => {
             setButtonDisable(true)
         }
     }
+    const closeButtonHandler = () =>{
+        dispatch(
+            {
+              type:"CLOSE_AUTH_PANELS"
+            }
+          )
+      }
 
     useEffect(() => {
         checkbuttonDisable()
@@ -56,12 +64,20 @@ const LoginFormComponent = ({ setComponent, setUserdata, userData }) => {
     }, [userData.email, userData.password])
 
 
+    const SignUpButtonHandler = () =>{
+        dispatch(
+          {
+            type:"OPEN_SIGNUP_PANEL"
+          }
+        )
+      }
+
 
     return <>
         <div className="signup__popup__component">
             <nav className="signup__form__component__nav">
                 <p className="text_style_1">Welcome Back</p>
-                <img src={ClosePopupIcon} alt="" />
+                <img src={ClosePopupIcon} alt="" onClick={closeButtonHandler}/>
             </nav>
 
             <div className="signup__form__component__body">
@@ -93,7 +109,7 @@ const LoginFormComponent = ({ setComponent, setUserdata, userData }) => {
                 </div>
             </div>
 
-            <div className="signup__form__component__footer">
+            <div className="signup__form__component__footer" onClick={SignUpButtonHandler}>
                 <p>Don&apos;t have an account?<span> Sign up</span></p>
             </div>
         </div>
@@ -102,24 +118,27 @@ const LoginFormComponent = ({ setComponent, setUserdata, userData }) => {
 
 const OTPLogin = ({setComponent}) => {
     const [gotOtp, setGotOtp] = useState(false);
-    const { minutes, seconds, startTimer, active, resetTimer, timerFinished } = useOtpResendTimer(300)
+    const { minutes, seconds, startTimer, timerFinished } = useOtpResendTimer(300)
     const [emailId, setEmailId] = useState("")
     const [otp , setOtp] = useState("")
     const navigate = useNavigate()
-    const {otpGenerated} = useSelector((state) => state.authReducer)
-    const {signupotpLoading, signupComplete} = useSelector((state) => state.authReducer)
+    const {otpGenerated, signupComplete} = useSelector((state) => state.authReducer)
+    
+
     const dispatch = useDispatch()
     useEffect(() => {
         if(otpGenerated === true){
             setGotOtp(true)
             startTimer()
         }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
     },[otpGenerated])
 
     useEffect(()=>{
         if(signupComplete === true){
             navigate("/")
         }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
     },[signupComplete])
 
     
@@ -127,7 +146,7 @@ const OTPLogin = ({setComponent}) => {
     return (
         <>
             <div className="signup__popup__component">
-                <nav className="signup__form__component__nav">
+                <nav className="signup__form__component__nav">tui6
                     <p className="text_style_1">Welcome Back</p>
                     <img src={ClosePopupIcon} alt="" />
                 </nav>

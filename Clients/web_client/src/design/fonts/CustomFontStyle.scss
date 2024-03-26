@@ -9,3 +9,18 @@
     color: rgb(79, 79, 79);
     
 }
+
+// for the navigation bar links or text buttons
+.text_style_2{
+    font-weight: 400;
+    cursor: pointer;
+    // border: none;
+    // border-bottom: 2px solid #fff;
+    
+    
+    &:hover{
+        color: #fff;
+        
+        border-bottom: 2px solid #fff;
+    }
+}

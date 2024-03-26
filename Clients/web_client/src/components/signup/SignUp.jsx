@@ -22,7 +22,7 @@ const SignUp = () => {
     const [password, setPassword] = useState("");
     const [otp, setOtp] = useState("");
     const [choosedOption, setChoosedOption] = useState(0) // 1---> create password , 2--> OTP
-
+    const { openSignUpPanel } = useSelector((state) => state.global)
    
 
 
@@ -30,7 +30,7 @@ const SignUp = () => {
     return (
         <>
 
-            <Dialog open={showSignUp}>
+            <Dialog open={openSignUpPanel}>
                 <ClickAwayListener onClickAway={() => setShowSignup(false)}>
                     {
                         component === 1 ?
@@ -49,7 +49,7 @@ const SignUp = () => {
 }
 
 const SignUpFormComponent = ({ setComponent, setUserdata, userData }) => {
-
+    const dispatch = useDispatch()
     const [acceptTnC, setAcceptTnC] = useState(false);
     const [buttonDisable , setButtonDisable] = useState(true)
     const onChangeHandler = (e) => {
@@ -69,13 +69,28 @@ const SignUpFormComponent = ({ setComponent, setUserdata, userData }) => {
     // eslint-disable-next-line react-hooks/exhaustive-deps
     },[userData.name , userData.email , acceptTnC] )
 
+    const loginButtonHandler = () =>{
+        dispatch(
+          {
+            type:"OPEN_LOGIN_PANEL"
+          }
+        )
+      }
+
+      const closeButtonHandler = () =>{
+        dispatch(
+            {
+              type:"CLOSE_AUTH_PANELS"
+            }
+          )
+      }
 
 
     return <>
         <div className="signup__popup__component">
             <nav className="signup__form__component__nav">
                 <p className="text_style_1">Sign up</p>
-                <img src={ClosePopupIcon} alt="" />
+                <img src={ClosePopupIcon} alt="" onClick={closeButtonHandler}/>
             </nav>
 
             <div className="signup__form__component__body">
@@ -101,7 +116,7 @@ const SignUpFormComponent = ({ setComponent, setUserdata, userData }) => {
                 </div>
             </div>
 
-            <div className="signup__form__component__footer">
+            <div className="signup__form__component__footer" onClick={loginButtonHandler}>
                 <p>Already have an account?<span> Log in</span></p>
             </div>
         </div>
@@ -119,7 +134,7 @@ const OtpAndPassword = ({ setComponent, setChoosedOption , userData}) => {
             
         }else{
             setChoosedOption(option)
-            setComponent(3)
+            setComponent(3) 
         }
     }
 

@@ -1,0 +1,183 @@
+.prelogin__homepage {
+    width: 100vw;
+    height: 100vh;
+    overflow-x: hide;
+    overflow-y: scroll;
+    scroll-behavior: smooth;
+
+    &::-webkit-scrollbar {
+        display: none;
+    }
+}
+
+.homepage__top__section {
+    width: 100%;
+    height: 70%;
+    // background-color: aquamarine;
+    background-size: contain;
+    background-repeat: no-repeat;
+    background: url('https://res.cloudinary.com/dbnqqpobe/image/upload/v1711136902/cloth_store_homepage/wxk51ewkiho6byaphxj2.png');
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    // position: relative;
+
+    .motorcycle__animation{
+        position: absolute;
+        bottom: 0;
+        left: 0%;
+        display: flex;
+        align-items: flex-end;
+        animation:motorcycle__animation 12s ;
+
+        .motorcycle__animation__text{
+            background-color: #FF7E8B;
+            padding: 5px 10px;
+            padding-bottom: 0;
+            font-weight: 600;
+            border-radius: 10px;
+
+        }
+        .line{
+            width: 30px;
+            // height: 2px;
+            color: #fff;
+            border: 1px dotted #fff;
+            transform: rotate(160deg);
+            // position: abs();
+            margin-bottom: 20px;
+        }
+        .motorcycle__icon{
+            height: 3rem;
+            color: #fff;
+
+
+        }
+
+
+        
+       
+    }
+
+    @keyframes motorcycle__animation {
+        0%{
+            left: 0%;
+            // display: block;
+        }
+        100%{
+            left: 85%;
+            display: none;
+           
+        }
+        
+    }
+
+
+    .homepage_top_section_search {
+        width: 100%;
+        height: 100%;
+        // background-color: #fff;
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+
+        .icon {
+            width: 20px;
+            color: rgb(130, 130, 130);
+            cursor: pointer;
+        }
+
+        .location {
+            color: #FF7E8B;
+        }
+
+        .location__search {
+            width: 37%;
+            display: flex;
+            align-items: center;
+            justify-content: space-around;
+            background-color: #fff;
+            padding: 0 10px;
+            border-radius: 15px;
+
+            input {
+                width: 70%;
+                padding: 5px 10px;
+                background-color: transparent;
+                border: none;
+                outline: none;
+                color: rgb(130, 130, 130);
+                font-size: large;
+                font-weight: 600;
+            }
+        }
+
+        .shop__search {
+            width: 57%;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            background-color: #fff;
+            padding: 0 10px;
+            border-radius: 15px;
+
+            input {
+                width: 90%;
+                padding: 5px 10px;
+                background-color: transparent;
+                border: none;
+                outline: none;
+                color: rgb(130, 130, 130);
+                font-size: large;
+                font-weight: 600;
+            }
+        }
+    }
+
+}
+
+.homepage__available__locations {
+    padding: 20px 5%;
+    margin-bottom: 10%;
+
+    .available__location__head {
+        font-size: 2rem;
+        font-weight: 400;
+    }
+
+    .homepage__available__locations_inner {
+        .available__location__card {
+            background-color: rgb(130, 130, 130, 0.4);
+            ;
+            color: #fff;
+            width: 20%;
+            padding: 20px 20px;
+            border-radius: 15px;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            cursor: pointer;
+
+            p {
+                margin: 0;
+                font-size: 2rem;
+                font-weight: 600;
+            }
+
+            .right_icon {
+                font-size: 1.8rem;
+                color: #646cff;
+                cursor: pointer;
+
+            }
+
+            &:hover {
+                transform: scale(1.02);
+            }
+
+
+        }
+    }
+
+}
