@@ -1,26 +1,59 @@
 @import url("https://fonts.googleapis.com/css2?family=Inter:wght@200;300;400;500;600;700;800&family=Plus+Jakarta+Sans:wght@200;300;400;500;600;700;800&display=swap");
 
 //for the signup or login page nav header text
-.text_style_1{
+.text_style_1 {
     font-size: 1.8rem;
-    
+
     margin: 0;
     font-weight: 500;
     color: rgb(79, 79, 79);
-    
+
 }
 
 // for the navigation bar links or text buttons
-.text_style_2{
+.text_style_2 {
     font-weight: 400;
     cursor: pointer;
     // border: none;
     // border-bottom: 2px solid #fff;
-    
-    
-    &:hover{
+
+
+    &:hover {
         color: #fff;
-        
+
         border-bottom: 2px solid #fff;
+    }
+}
+
+.footer__body__col__heading {
+    text-transform: uppercase;
+    font-weight: 600;
+    font-size: 1rem;
+    letter-spacing: 0.15rem;
+    position: relative;
+    width: fit-content;
+
+
+    &::after {
+        position: absolute;
+        width: 0%;
+        // border: 1px solid black;
+        content: "";
+        // height: 10px;
+        left: 0;
+        bottom: 0;
+        transition: all 0.5s;
+    }
+
+
+
+}
+
+.footer__body__col__option {
+    color: rgb(105, 105, 105);
+    cursor: pointer;
+
+    &:hover{
+        font-weight: 500;
     }
 }

@@ -23,15 +23,59 @@
     justify-content: center;
     // position: relative;
 
-    .motorcycle__animation{
+    .airplane__animation{
+        display: flex;
+        flex-direction: column;
+        position: absolute;
+        width: 10%;
+        left: 00%;
+        bottom: 100%;
+        animation: motorcycle__animation 12s;
+
+        img{
+            height: 10%;
+            width: 100%;
+            margin-left: 20%;
+            z-index: 100;
+            transform: rotate(360deg);
+        }
+        // .motorcycle__animation__text {
+        //     background-color: #FF7E8B;
+        //     text-align: center;
+        //     padding: 5px 5px;
+        //     // padding-bottom: 0;
+        //     font-weight: 600;
+        //     border-radius: 10px;
+        //     width: 70%;
+        //     z-index: 100;
+           
+            
+            
+        // }
+        // .line {
+        //     width: 0px;
+        //     height: 50%;
+        //     color: #fff;
+        //     border: 1px dotted #fff;
+        //     transform: rotate(30deg);
+        //     // position: abs();
+        //     left: 40%;
+        //     bottom: 0%;
+        //     margin-bottom: 20px;
+        //     position: absolute;
+        //     animation: rope__animation 2s reverse infinite;
+        // }
+    }
+
+    .motorcycle__animation {
         position: absolute;
         bottom: 0;
         left: 0%;
         display: flex;
         align-items: flex-end;
-        animation:motorcycle__animation 12s ;
+        animation: motorcycle__animation 12s;
 
-        .motorcycle__animation__text{
+        .motorcycle__animation__text {
             background-color: #FF7E8B;
             padding: 5px 10px;
             padding-bottom: 0;
@@ -39,7 +83,8 @@
             border-radius: 10px;
 
         }
-        .line{
+
+        .line {
             width: 30px;
             // height: 2px;
             color: #fff;
@@ -48,7 +93,8 @@
             // position: abs();
             margin-bottom: 20px;
         }
-        .motorcycle__icon{
+
+        .motorcycle__icon {
             height: 3rem;
             color: #fff;
 
@@ -56,22 +102,41 @@
         }
 
 
-        
-       
+
+
     }
 
     @keyframes motorcycle__animation {
-        0%{
+        0% {
             left: 0%;
+            bottom: 100%;
+            transform: rotate(320deg);
             // display: block;
         }
-        100%{
+
+        100% {
             left: 85%;
+            bottom: 0%;
             display: none;
-           
+
         }
-        
+
     }
+    // @keyframes rope__animation {
+    //     0% {
+    //         transform: rotate(32deg);
+    //         // display: block;
+    //     }
+    //     50%{
+    //         transform: rotate(30deg);
+    //     }
+
+    //     100% {
+    //         transform: rotate(28deg);
+
+    //     }
+
+    // }
 
 
     .homepage_top_section_search {
@@ -138,46 +203,121 @@
 }
 
 .homepage__available__locations {
-    padding: 20px 5%;
-    margin-bottom: 10%;
+    // padding: 20px 5%;
+    // margin-bottom: 10%;/
+    margin: 2.5% 0;
+    width: 100%;
+    display: flex;
+    justify-content: flex-end;
+    .homepage__available__locations__inner {
+        width: 80%;
+        background-color: #fff;
+        padding: 20px 5%;
+        padding-bottom: 5%;
+        border-top-left-radius: 5vh;
+        border-bottom-left-radius: 5vh;
 
-    .available__location__head {
-        font-size: 2rem;
-        font-weight: 400;
-    }
+        .available__location__head {
+            font-size: 2rem;
+            font-weight: 400;
+            color: black;
+        }
 
-    .homepage__available__locations_inner {
-        .available__location__card {
-            background-color: rgb(130, 130, 130, 0.4);
-            ;
-            color: #fff;
-            width: 20%;
-            padding: 20px 20px;
-            border-radius: 15px;
+        .homepage__available__locations_inner__comp {
             display: flex;
-            align-items: center;
-            justify-content: space-between;
-            cursor: pointer;
+            flex-wrap: wrap;
+            gap: 2%;
 
-            p {
-                margin: 0;
-                font-size: 2rem;
-                font-weight: 600;
-            }
-
-            .right_icon {
-                font-size: 1.8rem;
-                color: #646cff;
+            .available__location__card {
+                background-color: #fff;
+                box-shadow: rgba(28, 28, 28, 0.08) 0px 1.42623px 2.85246px;
+                color: black;
+                width: 20%;
+                padding: 20px 20px;
+                border-radius: 15px;
+                display: flex;
+                align-items: center;
+                justify-content: space-between;
                 cursor: pointer;
+                border: 1px solid rgb(232, 232, 232);
+                margin-bottom: 2%;
+
+                p {
+                    margin: 0;
+                    font-size: 2rem;
+                    font-weight: 400;
+                }
+
+                .right_icon {
+                    font-size: 1.8rem;
+                    color: #FF7E8B;
+                    cursor: pointer;
+
+                }
+
+                &:hover {
+                    transform: scale(1.02);
+                }
+
 
             }
-
-            &:hover {
-                transform: scale(1.02);
-            }
-
-
         }
     }
+
+}
+
+.homepage__download__app {
+    width: 70%;
+    height: 80vh;
+    background-color: #fff;
+    border-bottom-right-radius: 10vh;
+    border-top-right-radius: 10vh;
+    margin-bottom: 5vh;
+    display: flex;
+    align-items: center;
+
+    img {
+        height: 80%;
+        width: 50%;
+    }
+
+    .homepage__download__app__content {
+        width: 50%;
+
+        h3 {
+            color: black;
+            font-size: 2.5rem;
+            font-weight: 300;
+            margin: 0;
+            margin-bottom: 2.5%;
+        }
+
+        p {
+            margin: 0;
+            color: rgb(105, 105, 105);
+        }
+
+        .homepage__download__register {
+            display: flex;
+            gap: 2.5%;
+            margin-top: 5%;
+
+            input {
+                width: 50%;
+                background-color: transparent;
+                border: 1px solid rgb(207, 207, 207);
+                border-radius: 5px;
+                outline: none;
+                color: rgb(105, 105, 105);
+                font-weight: 600;
+                // font
+            }
+
+            button {
+                background-color: #FF7E8B;
+            }
+        }
+    }
+
 
 }

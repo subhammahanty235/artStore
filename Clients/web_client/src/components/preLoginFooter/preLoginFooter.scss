@@ -1,0 +1,61 @@
+.prelogin__footer {
+    width: 100%;
+    // background-color: ;
+    height: fit-content;
+    display: flex;
+    // align-items: flex-end;
+    justify-content: flex-end;
+
+    .prelogin__footer__inner {
+        width: 80%;
+        height: 100%;
+        background-color: #fff;
+        border-top-left-radius: 10vh;
+        border-bottom-left-radius: 10vh;
+        padding: 5%;
+        padding-top: 2.5%;
+        color: black;
+
+        .footer__header {
+
+            .navbar__logo {
+                opacity: 1;
+                font-size: 1.7rem;
+                font-weight: 600;
+                margin-left: 40px;
+
+                // font-family: "Fjord One", serif;
+
+                span {
+                    font-family: "The Nautigal", cursive;
+
+                }
+            }
+            margin-bottom: 1%;
+
+        }
+
+        .footer__body{
+            display: flex;
+            margin-left: 40px;
+
+            .footer__body__col{
+                width: 30%;
+
+                &:hover {
+                    .footer__body__col__heading::after {
+                        position: absolute;
+                        width: 40%;
+                        border: 1px solid black;
+                        content: "";
+                        // height: 10px;
+                        left: 0;
+                        bottom: 0;
+                    }
+                }
+            }
+        }
+
+    }
+
+}
