@@ -1,14 +1,40 @@
+# version: '3'
+# services:
+#   rabbitmq:
+#     image: rabbitmq:3.13-management
+#     ports:
+#       - "5672:5672"  # RabbitMQ port
+#       - "15672:15672"  # RabbitMQ management UI port
+
+#   backend:
+#     build: .
+#     ports:
+#       - "8080:8080"  # Your Golang application port
+#     depends_on:
+#       - rabbitmq
+
+
 version: '3'
+
 services:
-  rabbitmq:
-    image: rabbitmq:3.13-management
+  nginx:
+    image: nginx:latest
     ports:
-      - "5672:5672"  # RabbitMQ port
-      - "15672:15672"  # RabbitMQ management UI port
+      - "80:80"  # Expose Nginx on port 80
+    volumes:
+      - ./nginx.conf:/etc/nginx/nginx.conf  # Mount Nginx configuration file
+    depends_on:
+      - backend
+      - rabbitmq
 
   backend:
     build: .
     ports:
       - "8080:8080"  # Your Golang application port
-    depends_on:
-      - rabbitmq
+    
+
+  rabbitmq:
+    image: rabbitmq:3.13-management
+    ports:
+      - "5672:5672"  # RabbitMQ port
+      - "15672:15672"  # RabbitMQ management UI port
