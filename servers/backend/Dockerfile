@@ -19,15 +19,6 @@ COPY . .
 # Expose port 8080 for your Golang application
 EXPOSE 8080
 
-# Install RabbitMQ
-RUN apt-get update && \
-    apt-get install -y rabbitmq-server && \
-    rabbitmq-plugins enable rabbitmq_management
-
-# Expose RabbitMQ ports
-EXPOSE 5672 15672
-
-# Copy the entrypoint script into the container
 COPY entrypoint.sh /app/entrypoint.sh
 RUN chmod +x /app/entrypoint.sh
 
