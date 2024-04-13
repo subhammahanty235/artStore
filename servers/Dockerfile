@@ -3,6 +3,7 @@
 # Set the base image
 FROM alpine:latest
 WORKDIR /app
+COPY . .
 # Copy any necessary files or configuration
 # COPY my-app /app
 
