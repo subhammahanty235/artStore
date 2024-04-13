@@ -4,10 +4,10 @@
 FROM alpine:latest
 
 # Copy any necessary files or configuration
-COPY my-app /app
+# COPY my-app /app
 
 # Set the working directory
-WORKDIR /app
+# WORKDIR /app
 
 # Define the command to run your application
 # CMD ["./my-app"]
