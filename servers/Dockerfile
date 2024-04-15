@@ -3,12 +3,12 @@
 # Set the base image
 FROM alpine:latest
 WORKDIR /app
-COPY . .
-# Copy any necessary files or configuration
-# COPY my-app /app
 
-# Set the working directory
-# WORKDIR /app
+# Copy the backend folder
+COPY backend ./backend
 
-# Define the command to run your application
-# CMD ["./my-app"]
+# Copy the node_server folder
+COPY node_server ./node_server
+
+# Copy the Nginx configuration file
+COPY nginx.conf /etc/nginx/nginx.conf
