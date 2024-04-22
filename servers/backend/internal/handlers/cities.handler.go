@@ -10,6 +10,7 @@ import (
 	// "github.com/subhammahanty235/artstore-backend/internal/drivers"
 	"github.com/subhammahanty235/artstore-backend/internal/drivers/query"
 	"github.com/subhammahanty235/artstore-backend/internal/models"
+	"github.com/subhammahanty235/artstore-backend/internal/utils"
 	"go.mongodb.org/mongo-driver/bson"
 	"go.mongodb.org/mongo-driver/bson/primitive"
 	"go.mongodb.org/mongo-driver/mongo"
@@ -48,6 +49,9 @@ func (ga *StoreApp) AddNewCity(db *mongo.Client) gin.HandlerFunc {
 
 		collection := query.AvailableCities(*db)
 		newCity.ID = primitive.NewObjectID()
+		randomNum, _ := utils.GenerateOtp(4)
+		// .ShopCode = newShop.ShopName + randomNum
+		newCity.CityCode = newCity.City[0:2] + randomNum
 
 		_, insertErr := collection.InsertOne(dbCtx, newCity)
 		if insertErr != nil {
@@ -64,7 +68,7 @@ func (ga *StoreApp) AddNewCity(db *mongo.Client) gin.HandlerFunc {
 
 			"success": true,
 		})
-		return
+		// return
 
 	}
 }
@@ -108,7 +112,7 @@ func (ga *StoreApp) FetchAllAvailableCities(db *mongo.Client) gin.HandlerFunc {
 			"success": true,
 			"cities":  cities,
 		})
-		return
+		// return
 
 	}
 }

@@ -1,0 +1,159 @@
+.postlogin__homepage {
+    // background-color: #fff;
+    width: 100vw;
+    height: 100vh;
+    overflow-x: hide;
+    overflow-y: scroll;
+    scroll-behavior: smooth;
+
+
+    // padding: 5%;
+    &::-webkit-scrollbar {
+        display: none;
+    }
+
+    .postlogin__homepage__inner {
+        margin-top: 7%;
+
+        .choose__options {
+            display: flex;
+            align-items: center;
+            justify-content: flex-start;
+            margin-left: 8%;
+            margin-right: 8%;
+            padding-bottom: 1%;
+            column-gap: 2.5%;
+            // width: fit-content;
+            border-bottom: 1px solid rgb(130, 130, 130);
+
+
+            div {
+                // width: 10%;
+                padding: 1% 2%;
+                background-color: #fff;
+                border-radius: 10px;
+                color: #1E2B34;
+                font-size: 1.2rem;
+                font-weight: 600;
+                cursor: pointer;
+                display: flex;
+                width: fit-content;
+                align-items: center;
+                justify-content: center;
+                gap:10px;
+                img{
+                    height: 30px;
+                }
+
+                &.active {
+                    // color: #FF7E8B;
+                    color: #21C062;
+                }
+
+            }
+        }
+
+        .filter__shops {
+            // margin-left: 8%;
+            margin-right: 8%;
+            margin-top: 20px;
+            margin-bottom: 40px;
+            display: flex;
+            column-gap: 10px;
+
+            span {
+                padding: 5px 10px;
+                color: rgb(201, 197, 197);
+                border: 1px solid rgb(201, 197, 197);
+                border-radius: 5px;
+
+                &.active {
+                    // color: #FF7E8B;
+                    // border: 2px solid #FF7E8B;
+                    color: #21C062;
+                    border: 2px solid #21C062;
+                    font-weight: 600;
+                }
+            }
+
+
+        }
+
+        .trending__shops {
+            margin-left: 8%;
+            margin-right: 8%;
+            margin-top: 3%;
+
+            .trending__shops__header {
+                color: #fff;
+                font-size: large;
+                font-weight: 600;
+            }
+
+            .shops__section {
+                display: flex;
+                flex-wrap: wrap;
+                column-gap: 1.2rem;
+                row-gap: 1.4rem;
+            }
+        }
+
+        .cloth__suggestions {
+            margin-left: 8%;
+            margin-right: 8%;
+            margin-top: 1.5%;
+            // background-color: aqua;
+            position: relative;
+
+            .cloth__suggestions__header {
+                color: #fff;
+                font-size: large;
+                font-weight: 600;
+            }
+
+            .scroll__buttons {
+                width: 100%;
+                display: flex;
+                align-items: center;
+                justify-content: space-between;
+                position: absolute;
+                top: 55%;
+
+                img {
+                    background-color: #fff;
+                    border-radius: 50%;
+                    // box-shadow: rgba(28, 28, 28, 0.08) 5px 5px 8px;
+                    -webkit-box-shadow: 1px -1px 54px -3px rgba(0, 0, 0, 0.75);
+                    -moz-box-shadow: 1px -1px 54px -3px rgba(0, 0, 0, 0.75);
+                    box-shadow: 1px -1px 54px -3px rgba(0, 0, 0, 0.75);
+                    width: 30px;
+                    height: 30px;
+                    cursor: pointer;
+
+                }
+
+                .right__button {
+                    transform: rotate(180deg);
+
+                }
+
+            }
+
+            .cloth__suggestions__inner {
+                display: flex;
+                column-gap: 20px;
+                overflow: scroll;
+                overflow-y: hidden;
+                padding: 0px 5px;
+
+                &::-webkit-scrollbar {
+                    display: none;
+                }
+            }
+
+        }
+    }
+
+
+
+}

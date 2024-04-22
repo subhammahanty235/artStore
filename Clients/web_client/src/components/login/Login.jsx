@@ -146,7 +146,7 @@ const OTPLogin = ({setComponent}) => {
     return (
         <>
             <div className="signup__popup__component">
-                <nav className="signup__form__component__nav">tui6
+                <nav className="signup__form__component__nav">
                     <p className="text_style_1">Welcome Back</p>
                     <img src={ClosePopupIcon} alt="" />
                 </nav>

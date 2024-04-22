@@ -1,0 +1,17 @@
+.choice__card1{
+    width: 10%;
+    height: 20vh;
+    background-color: #fff;
+    border-radius: 20px;
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    box-shadow: rgba(28, 28, 28, 0.08) 0px 2px 8px;
+    cursor: pointer;
+
+    img{
+        height: 80%;
+        cursor: pointer;
+    }
+}

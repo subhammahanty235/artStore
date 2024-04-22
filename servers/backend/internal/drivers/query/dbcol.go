@@ -16,3 +16,13 @@ func AvailableCities(db mongo.Client) mongo.Collection {
 	var availableCities = db.Database("artStoreDev").Collection("availableLocation")
 	return *availableCities
 }
+
+func Shops(db mongo.Client) mongo.Collection {
+	var shops = db.Database("artStoreDev").Collection("shops")
+	return *shops
+}
+
+func ShopOwner(db mongo.Client) mongo.Collection {
+	var shopOwners = db.Database("artStoreDev").Collection("shopOwner")
+	return *shopOwners
+}

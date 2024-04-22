@@ -283,7 +283,6 @@ func (ga *StoreApp) LoginWithPassword(db *mongo.Client) gin.HandlerFunc {
 		}
 
 		result, _ := utils.VerifyHash(reqData.Password, response["password"].(string))
-		println(result)
 		if result {
 
 			idObject := response["_id"].(primitive.ObjectID)

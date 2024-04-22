@@ -2,11 +2,15 @@
 import './homepage.scss'
 import PreloginNavbar from "../../components/preloginNavbar/PreloginNavbar"
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
-import { faLocationDot, faChevronDown, faMagnifyingGlass, faShop, faAngleRight, faMotorcycle } from '@fortawesome/free-solid-svg-icons'
+import { faLocationDot, faChevronDown, faShop, faAngleRight, } from '@fortawesome/free-solid-svg-icons'
 import PreLoginFooter from '../../components/preLoginFooter/PreLoginFooter'
 import Mobile_App_illustration from '../../assets/application_illustration.svg'
 import AirplaneGif from '../../assets/airplane.gif'
+import KolkataBanner from '../../assets/images/kolkata_banner.png'
+import { useNavigate } from 'react-router-dom'
 const HomePage = () => {
+  const navigate = useNavigate()
+
   return (
     <>
 
@@ -50,23 +54,23 @@ const HomePage = () => {
             <div className="homepage__available__locations__inner">
               <h3 className="available__location__head">We are currently available in...</h3>
               <div className="homepage__available__locations_inner__comp">
-                <div className="available__location__card">
+                <div className="available__location__card" style={{ background: KolkataBanner}} onClick={()=>navigate(`/city/${"kolkata"}`)} >
                   <p>Kolkata</p>
                   <FontAwesomeIcon icon={faAngleRight} className='right_icon' />
                 </div>
-                <div className="available__location__card">
+                <div className="available__location__card"  onClick={()=>navigate(`/city/${"Jamshedpur"}`)}>
                   <p>Jamshedpur</p>
                   <FontAwesomeIcon icon={faAngleRight} className='right_icon' />
                 </div>
-                <div className="available__location__card">
+                <div className="available__location__card"  onClick={()=>navigate(`/city/${"Hyderabad"}`)}>
                   <p>Hyderabad</p>
                   <FontAwesomeIcon icon={faAngleRight} className='right_icon' />
                 </div>
-                <div className="available__location__card">
+                <div className="available__location__card"  onClick={()=>navigate(`/city/${"Pune"}`)}>
                   <p>Pune</p>
                   <FontAwesomeIcon icon={faAngleRight} className='right_icon' />
                 </div>
-                <div className="available__location__card">
+                <div className="available__location__card"  onClick={()=>navigate(`/city/${"Banglore"}`)}>
                   <p>Banglore</p>
                   <FontAwesomeIcon icon={faAngleRight} className='right_icon' />
                 </div>

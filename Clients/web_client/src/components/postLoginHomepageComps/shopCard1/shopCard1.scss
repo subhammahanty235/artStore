@@ -1,0 +1,108 @@
+.shop__card__1{
+    width: 32%;
+    height: fit-content;
+    min-height: 50vh;
+    // border: 1px solid #fff;
+    display: flex;
+    flex-direction: column;
+    border-radius: 20px;
+    // border: 1px solid rgb(232, 232, 232);
+    box-shadow: #b7b3b3 0px 0px 1px;
+    cursor: pointer;
+    // padding: 10px;
+
+    // &:hover{
+    //     border: 1px solid #FF7E8B;
+    // }
+    
+
+    .card__top__section{
+        // background-color: aqua;
+        background: url("https://5.imimg.com/data5/SELLER/Default/2023/1/QM/GU/BL/153876537/cloth-shop-garment-display-rack-500x500.jpg");
+        border-radius: inherit;
+        border-bottom-left-radius: 0;
+        border-bottom-right-radius: 0%;
+        // width: 100%;
+        height: 60%;
+        min-height: 35vh;
+        // width: /;
+    }
+
+    .card__bottom__section{
+        background-color: #fff;
+        // width: 100%;
+        height: 40%;
+        min-height: 15vh;
+        border-radius: inherit;
+        border-top-left-radius: 0;
+        border-top-right-radius: 0%;
+
+        .name__rating{
+            margin: 10px 5%;
+            color: black;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            // background-color: aqua;
+            margin-bottom: 0;
+
+            .shop__name{
+                margin: 0;
+                font-size: 1.2rem;
+                font-weight: 500;
+            }
+
+            .shop__rating{
+                display: flex;
+                background-color: rgb(58, 183, 87);
+                color: #fff;
+                // height: 20px;
+                padding: 2.5px 8px;
+                align-items: center;
+                justify-content: space-between;
+                gap: 5px;
+                border-radius: 10px;
+                font-weight: 600;
+                
+
+                img{
+                    height: 16px;
+                }
+            }
+        }
+
+        .top__offerings{
+            // color: black;
+            color: rgb(105, 105, 105);
+            // background-color: aqua;
+            margin: 0px 5%;
+            p{
+                margin: 0;
+            }
+        }
+
+        .location__distance{
+            color:rgb(105, 105, 105);
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            margin: 0px 5%;
+            margin-top: 5px;
+
+            p{
+                font-size: 0.9rem;
+                margin: 0;
+            }
+
+            .location{
+                color: rgb(156, 156, 156)
+            }
+            .distance{
+                color: rgb(54, 54, 54);
+                font-weight: 500;
+
+            }
+        }
+
+    }
+}

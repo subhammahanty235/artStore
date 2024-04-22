@@ -1,0 +1,102 @@
+@import url('https://fonts.googleapis.com/css2?family=Fjord+One&family=Pacifico&family=Quicksand&family=Qwitcher+Grypen&family=Sedgwick+Ave+Display&family=The+Nautigal:wght@700&display=swap');
+
+.postlogin__navbar__desktop {
+    height: 80px;
+    width: 100%;
+    position: fixed;
+    top: 0;
+    backdrop-filter: blur(10px);
+    display: flex;
+    align-items: center;
+    justify-content: space-around;
+    z-index: 100000;
+
+
+    .navbar__logo {
+        opacity: 1;
+        font-size: 1.7rem;
+        font-weight: 600;
+        // margin-left: 40px;
+        color: #F0F2F4;
+        span {
+            font-family: "The Nautigal", cursive;
+
+        }
+    }
+
+    .posthomepage_top_section_search{
+        display: flex;
+        height: 100%;
+        align-items: center;
+        justify-content: space-between;
+        gap: 10px;
+
+        .icon {
+            width: 20px;
+            color: rgb(130, 130, 130);
+            cursor: pointer;
+        }
+
+        .location {
+            width: 30px;
+            height: 20px;
+            // color: #FF7E8B;
+            color: #21C062;
+        }
+
+        .location__search {
+            width: 37%;
+            display: flex;
+            align-items: center;
+            justify-content: space-around;
+            background-color: #fff;
+            padding: 5px 10px;
+            border-radius: 10px;
+            position: relative;
+            box-shadow: rgba(28, 28, 28, 0.08) 0px 2px 8px;
+            border: 1px solid rgb(232, 232, 232);
+            input {
+                width: 70%;
+                padding: 5px 10px;
+                background-color: transparent;
+                border: none;
+                outline: none;
+                color: rgb(130, 130, 130);
+                font-size: large;
+                font-weight: 600;
+                cursor: pointer;
+            }
+        }
+        .shop__search {
+            width: 57%;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            background-color: #fff;
+            padding: 5px 10px;
+            border-radius: 10px;
+            position: relative;
+            box-shadow: rgba(28, 28, 28, 0.08) 0px 2px 8px;
+            border: 1px solid rgb(232, 232, 232);
+
+            input {
+                width: 90%;
+                padding: 5px 10px;
+                background-color: transparent;
+                border: none;
+                outline: none;
+                color: rgb(130, 130, 130);
+                font-size: large;
+                font-weight: 600;
+            }
+        }
+    }
+
+    .profile__toggle__image{
+        height: 40px;
+        width: 40px;
+        background-color: #FF7E8B;
+        border-radius: 50%;
+        // margin-right: 40px;
+    }
+}

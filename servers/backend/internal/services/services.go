@@ -19,5 +19,9 @@ func Services(r *gin.Engine, g *handlers.StoreApp, db *mongo.Client) {
 	{
 		CityService(cityGroup, g, db)
 	}
+	shopGroup := r.Group("/shop")
+	{
+		ShopService(shopGroup, g, db)
+	}
 
 }
