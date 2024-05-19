@@ -24,6 +24,7 @@ type Shop struct {
 	Website            string               `json:"website" bson:"website"`
 	VerificationStatus bool                 `json:"verificationStatus" bson:"verificationStatus"`
 	Secondarytelephone string               `json:"secondaryTelephone" bson:"secondaryTelephone"`
+	AdminSideData      AdminSideData        `json:"adminSideData" bson:"adminSideData"`
 }
 
 type Reviews struct {
