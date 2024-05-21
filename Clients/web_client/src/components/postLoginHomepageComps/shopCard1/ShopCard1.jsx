@@ -5,7 +5,7 @@ const ShopCard1 = () => {
   return (
     <div className='shop__card__1'>
       <div className="card__top__section">
-        
+        <img src="https://5.imimg.com/data5/SELLER/Default/2023/1/QM/GU/BL/153876537/cloth-shop-garment-display-rack-500x500.jpg" alt="" />
       </div>
       <div className="card__bottom__section">
           <div className="name__rating">

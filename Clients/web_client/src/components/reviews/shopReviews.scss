@@ -1,0 +1,43 @@
+.shopreview {
+    width: 70%;
+    margin-top: 1.3%;
+
+    .shopreview__name__rating {
+        display: flex;
+        align-items: center;
+        // gap: 50%;
+        justify-content: space-between;
+
+        .name{
+            font-size: large;
+            font-weight: 600;
+            display: flex;
+            align-items: center;
+            gap: 15px;
+            
+            img{
+                height: 35px;
+                width: 35px;
+                border-radius: 50%;
+            }
+        }
+    }
+
+    .images {
+        display: flex;
+        gap: 20px;
+        img {
+            width: 80px;
+            height: 80px;
+            border-radius: 10px;
+        }
+    }
+
+    .review__content{
+        margin-top: 10px;
+        margin-bottom: 10px;
+        font-size: 14px;
+    }
+
+
+}

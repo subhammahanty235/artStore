@@ -1,0 +1,51 @@
+p{
+    margin: 0;
+}
+.product__page__billing{
+    width: 60%;
+    background-color: #fff;
+    padding: 2% 4%;
+    border-radius: 10px;
+
+    .product__name{
+        margin: 0;
+        color: black;
+        font-size: larger;
+        font-weight: 700;
+
+    }
+
+    .price{
+        color: black;
+    }
+
+    .choose__your__size{
+        color: black;
+
+        .choose__size__heading{
+            margin: 0;
+        }
+
+        .size__chart{
+            width: 100%;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            span{
+                text-align: center;
+                background-color: grey;
+                width: 15%;
+                
+            }
+        }
+    }
+
+    .choose__address{
+        color: black;
+            
+
+    }
+
+
+
+}

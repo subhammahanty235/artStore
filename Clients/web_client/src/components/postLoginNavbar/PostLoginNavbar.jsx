@@ -8,7 +8,7 @@ import SelectShop from '../extendedSearch/selectShop/SelectShop'
 const PostLoginNavbar = ({ selectedCity }) => {
     const [showCitySuggestion, setShowCitySuggestion] = useState(false)
     const [showShopSuggestion, setShowShopSuggestion] = useState(false)
-
+    const [showExtendedOption, setShowExtendedOption] = useState(false)
     const [searchShopData, setSearchShopData] = useState("")
 
     useEffect(()=>{
@@ -50,9 +50,29 @@ const PostLoginNavbar = ({ selectedCity }) => {
             </div>
             {/* </div> */}
 
-            <div className="profile__toggle__image"></div>
+            <div className="profile__toggle__image" onClick={()=>{setShowExtendedOption(!showExtendedOption)}}></div> 
+            
+            <ExtendedOptions show={showExtendedOption}/>
 
         </div>
+    )
+}
+
+
+const ExtendedOptions = ({show}) =>{
+    return(
+        <>
+            <div className={`profile__extended__options ${show === true ? "":"hide"}`}>
+
+                <button>Profile</button>
+                <button>Notifications</button>
+                <button>Favourites</button>
+                <button>Orders</button>
+                <button>Settings</button>
+                <hr />
+                <button>Log Out</button>
+            </div>
+        </>
     )
 }
 

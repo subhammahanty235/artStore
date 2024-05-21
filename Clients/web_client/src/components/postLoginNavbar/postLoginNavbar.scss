@@ -97,6 +97,52 @@
         width: 40px;
         background-color: #FF7E8B;
         border-radius: 50%;
+        cursor: pointer;
         // margin-right: 40px;
+    }
+}
+
+.profile__extended__options{
+    // height: 300px;
+    width: 200px;
+    background-color: #F0F2F4;
+    position:absolute;
+    right: 8%;
+    top: 100%;
+    border-radius: 10px;
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    padding-top: 1%;
+    padding-bottom: 1%;
+    height: fit-content;
+    transition: all 0.3s;
+    
+
+    &.hide{
+        
+        display: none;
+    }
+
+    button{
+        background-color: transparent;
+        color: black;
+        font-weight: 400;
+        outline: none;
+        border: none;
+
+        &:hover{
+            outline: none;
+            border: none;
+        }
+        &:focus
+        {
+            outline: none;
+            border: none;
+        }
+        &:focus-visible{
+            outline: none;
+            border: none;
+        }
     }
 }

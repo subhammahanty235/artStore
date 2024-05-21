@@ -1,0 +1,90 @@
+.item__card__chip{
+    width:30vw;
+    height: 180px;
+    // background-color: aqua;
+    background-color: #fff;
+    border-radius: 10px;
+    border: 1px solid rgb(232, 232, 232);
+    box-shadow: rgba(28, 28, 28, 0.08) 0px 2px 8px;
+    display: flex;
+
+    .item__card__chip__left{
+        width: 55%;
+        height: 100%;
+        margin: 10px 20px;
+
+
+
+        .shop__name{
+            color: #0B141B;
+            font-weight: 700;
+            font-size: medium;
+            margin: 0;
+            padding: 0;
+        }
+
+        .address{
+            color: #0B141B;
+            font-size: small;
+            margin: 0;
+        }
+        .open__indicator{
+            color:#0B141B ;
+            font-size: x-small;
+            margin-top: 10px;
+            font-weight: 600;
+            background-color: #b4f1cd;
+            width: fit-content;
+            border-radius:10px;
+
+            .open__now{
+                display: flex;
+                align-items: center;
+                gap: 5px;
+                padding: 3px 9px ;
+                
+
+                span{
+                background-color: #21C062;
+                width: 10px;
+                height: 10px;
+                border-radius: 50%;
+
+                }
+
+            }
+        }
+    }
+    .item__card__chip__middle{
+        width: 10%;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: space-between;
+        margin: 10px 0px;
+        img{
+            width: 80%;
+            height: 25%;
+            border-radius: 5px;
+            cursor: pointer;
+
+            &.active{
+                border: 2px solid #21C062;
+            }
+        }
+    }
+
+    .item__card__chip__right{
+        width: 35%;
+        margin: 10px 10px;
+        margin-left: 5px;
+        
+
+        img{
+            height: 100%;
+            width: 100%;
+            border-radius: 5%;
+
+        }
+    }
+}

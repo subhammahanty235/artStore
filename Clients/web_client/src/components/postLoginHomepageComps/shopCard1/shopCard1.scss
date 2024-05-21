@@ -5,7 +5,7 @@
     // border: 1px solid #fff;
     display: flex;
     flex-direction: column;
-    border-radius: 20px;
+    border-radius: 15px;
     // border: 1px solid rgb(232, 232, 232);
     box-shadow: #b7b3b3 0px 0px 1px;
     cursor: pointer;
@@ -18,13 +18,23 @@
 
     .card__top__section{
         // background-color: aqua;
-        background: url("https://5.imimg.com/data5/SELLER/Default/2023/1/QM/GU/BL/153876537/cloth-shop-garment-display-rack-500x500.jpg");
+        // background: url("https://5.imimg.com/data5/SELLER/Default/2023/1/QM/GU/BL/153876537/cloth-shop-garment-display-rack-500x500.jpg");
         border-radius: inherit;
         border-bottom-left-radius: 0;
         border-bottom-right-radius: 0%;
         // width: 100%;
         height: 60%;
-        min-height: 35vh;
+        min-height: 39vh;
+        background-color: #fff;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        img{
+            width: 90%;
+            max-height: 34vh;
+            border-radius: 10px;
+            // height: 90%;
+        }
         // width: /;
     }
 
