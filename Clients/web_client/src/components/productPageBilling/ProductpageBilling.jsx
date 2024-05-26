@@ -24,7 +24,7 @@ const ProductpageBilling = () => {
             <p className="choose__address__heading">  Delivery Address</p>
             <span>Teachers colony, Mango <br />jamshedpur 831012</span>
 
-            <p>Add another address</p>
+            <p className="choose__address__add_another"> Add another address</p>
         </div>
 
         <div className="any__message">
@@ -35,21 +35,20 @@ const ProductpageBilling = () => {
         <div className="preffered__delivery__time">
             <p className="preffered__delivery__time__heading">Choose your preffered time</p>
             <p className="preffered__delivery__time__note">note: your billing amount will be dependent on your preffered delivery time</p>
-
             <siv className="time__chart">
-                <span> {"< 20min"}</span>
+                <span>{"< 20min"}</span>
                 <span>{"< 45min"}</span>
                 <span>{"> 45min"}</span>
             </siv>
         </div>
 
         <div className="billing">
-            <p className="billing__details">Billing</p>
-            <p className="total__amount">380</p>
-            <div className="billing__details">
-                <p className="item__price">300</p>
-                <p className="shop__tax__extra">20</p>
-                <p className="delivery__charge">50</p>
+            <p className="billing__details"><p>Billing</p> <span>380</span></p>
+            
+            <div className="billing__detailed__view">
+                <p className="item__price"><span>Item price</span>200</p>
+                <p className="shop__tax__extra"><span>GST/Tax</span>20</p>
+                <p className="delivery__charge"><span>Delivery Charge</span>80</p>
             </div>
         </div>
 

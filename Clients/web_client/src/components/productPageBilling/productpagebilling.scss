@@ -1,13 +1,14 @@
-p{
+p {
     margin: 0;
 }
-.product__page__billing{
+
+.product__page__billing {
     width: 60%;
     background-color: #fff;
     padding: 2% 4%;
     border-radius: 10px;
 
-    .product__name{
+    .product__name {
         margin: 0;
         color: black;
         font-size: larger;
@@ -15,35 +16,136 @@ p{
 
     }
 
-    .price{
+    .price {
         color: black;
     }
 
-    .choose__your__size{
+    .choose__your__size {
         color: black;
+        font-weight: 500;
+        margin-bottom: 10px;
 
-        .choose__size__heading{
+        .choose__size__heading {
             margin: 0;
         }
 
-        .size__chart{
+        .size__chart {
             width: 100%;
             display: flex;
             align-items: center;
             justify-content: space-between;
-            span{
+
+            span {
                 text-align: center;
                 background-color: grey;
                 width: 15%;
-                
+                border-radius: 5px;
+                color: #fff;
+
             }
         }
     }
 
-    .choose__address{
+    .choose__address {
         color: black;
-            
+        margin-bottom: 10px;
+        &__heading {
+            font-weight: 500;
+        }
+        span{
+            font-size: medium;
+        }
+        &__add_another{
+            color: rgb(107, 158, 245);
+        }
 
+    }
+
+    .any__message{
+        font-weight: 500;
+        
+        textarea{
+            width: 100%;
+            height: 100px;
+            border-radius: 10px;
+            margin-top: 10px;
+            padding: 5px;
+        }
+    }
+
+    .preffered__delivery__time{
+        &__heading{
+            font-weight: 500;
+        }
+        &__note{
+            font-size: small;
+        }
+
+        .time__chart{
+            width: 100%;
+            display: flex;
+            justify-content: space-between;
+            // background-color: grey;
+            gap: 5px;
+            text-align: center;
+
+            span{
+                margin-top: 10px;
+                margin-bottom: 10px;
+                background-color: grey;
+                border-radius: 5px;
+                padding: 5px 10px;
+                color: #fff;
+                font-weight: 500;
+                font-size: small;
+            }
+        }
+    }
+
+    .billing{
+        &__details{
+            font-weight: 600;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            width: 100%;
+            // background-color: blue;
+            span{
+                color: #21C062;
+            }
+        }
+
+        .total__amount{
+            font-weight: 600;
+            width: 100%;
+        
+        }
+
+        &__detailed__view{
+
+            p{
+                display: flex;
+                align-items: center;
+                justify-content: space-between;
+                font-size: small;
+            }
+        }
+    }
+
+    .deliver__addtocart{
+        margin-top: 20px;
+        width: 100%;
+        display: flex;
+        justify-content: space-between;
+        gap: 20px;
+        font-size: small;
+        button{
+            width: 45%;
+        }
+
+        .buy__now{
+            background-color: #21C062;;
+        }
     }
 
 
