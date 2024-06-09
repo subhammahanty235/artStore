@@ -12,6 +12,7 @@ import (
 	"github.com/subhammahanty235/artstore-backend/internal/drivers"
 	"github.com/subhammahanty235/artstore-backend/internal/drivers/query"
 	"github.com/subhammahanty235/artstore-backend/internal/models"
+	"github.com/subhammahanty235/artstore-backend/internal/mq"
 	"github.com/subhammahanty235/artstore-backend/internal/utils"
 	"go.mongodb.org/mongo-driver/bson"
 	"go.mongodb.org/mongo-driver/bson/primitive"
@@ -137,6 +138,22 @@ func (ga *StoreApp) GetOtp(db *mongo.Client) gin.HandlerFunc {
 				"error":   insertErr.Error(),
 				"success": false,
 			})
+			return
+		}
+
+		message := mq.Message{
+			Type:      "sendOTP",
+			EmailCode: 001,
+			Payload: map[string]string{
+				"email": data.EmailId,
+				"otp":   data.SentOtp,
+			},
+		}
+
+		err := mq.PublishMessage("email_exchange", "send_email", message)
+		if err != nil {
+
+			ctx.JSON(http.StatusInternalServerError, gin.H{"error": "Error publishing message but otp generated", "err": err.Error()})
 			return
 		}
 

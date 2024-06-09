@@ -44,25 +44,29 @@
 version: '3'
 
 services:
+  rabbitmq:
+    image: rabbitmq:3.13-management
+    ports:
+      - "5672:5672"  # RabbitMQ port
+      - "15672:15672"  # RabbitMQ management UI port
+      
   backend:
     build: ./backend
     ports:
       - "8080:8080"  # Your Golang application port
+    environment:
+      - RABBITMQ_URL=amqp://rabbitmq:5672
     depends_on:
       - rabbitmq
 
   node-server:
     build: ./node_server
     ports:
-      - "5000:5000"  # Your Node.js application port
+      - "5005:5005"  # Your Node.js application port
+    environment:
+      - RABBITMQ_URL=amqp://rabbitmq:5672
     depends_on:
       - rabbitmq
-
-  rabbitmq:
-    image: rabbitmq:3.13-management
-    ports:
-      - "5672:5672"  # RabbitMQ port
-      - "15672:15672"  # RabbitMQ management UI port
 
   nginx:
     image: nginx:latest
