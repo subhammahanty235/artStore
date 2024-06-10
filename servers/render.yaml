@@ -1,0 +1,36 @@
+# render.yaml
+services:
+  - type: web
+    name: backend
+    env: docker
+    plan: free
+    dockerfilePath: backend/Dockerfile
+    envVars:
+      - key: PORT
+        value: 8080
+
+  - type: web
+    name: node-server
+    env: docker
+    plan: free
+    dockerfilePath: node-server/Dockerfile
+    envVars:
+      - key: PORT
+        value: 5005
+
+  - type: worker
+    name: rabbitmq
+    env: docker
+    plan: free
+    dockerfilePath: docker-compose.yml
+
+  - type: web
+    name: nginx
+    env: docker
+    plan: free
+    dockerfilePath: nginx/Dockerfile
+    envVars:
+      - key: NGINX_HOST
+        value: 0.0.0.0
+      - key: NGINX_PORT
+        value: 80
